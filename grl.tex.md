@@ -295,26 +295,33 @@ Matched Filter :
 $$H(f)=K\frac{S^*(f)}{P_n(f)}e^{-j2\pi ft_0}$$
 
 Impulse Response : 
+
 $$h(t)=Cs(t_0-t)$$
+
 - Known signal played backward and translated by $t_0$
 - Autocorrelation function maximum when perfectly aliged
 
 Power Spectral Density of White Noise :
+
 $$P_n(f)=\frac{N_0}{2}$$
 
 Probability of bit error :
+
 $$P_e < \frac{e^{-E_b/N_0}}{2 \sqrt{\pi E_b/N_0}}$$
+
 - $E_b$, Transmitted signal energy per bit
 - $N_0$, Noise spectral density
 - $\frac{E_b}{N_0}$ proportional to SNR
 
 ### Equalisation
+
 - Equalising Filter to minmise ISI
 - Two types :
     - Zero Forcing Equaliser
     - MMSE Equaliser
 
 ### Digital Modulation
+
 $$a\cos (2\pi f_ct + \theta)$$
 
 | Binary Shift Keyring    | Characteristics                                      |
