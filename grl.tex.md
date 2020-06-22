@@ -1,6 +1,4 @@
-[TOC]
-
-The magical file to quickly get a solution to a problem encountered before without searching the internet.
+The magical file to quickly get a solution to a problem encountered before without searching the Internet.
 
 ### Aliasing
 
@@ -96,10 +94,10 @@ $$y_{zi} = [A(p_1)^n + B(p_2)^n]u(n)$$
 
 Determine if the poles of the system are within the unit circle.
 
-### Inital and Final Values of Causal Signal
+### Initials and Final Values of Causal Signal
 - Signal is causal
 
-#### Inital Value
+#### Initial Value
 
 $$\lim_{z \rightarrow \infty} z^{-1} = 0$$
 
@@ -148,6 +146,7 @@ x(n) = {1, 2, 1, 1}
 ```
 
 - Do multiplication with
+
 ```
       1 2 1 1
       1 1 2 1 \\ Inverted x(n)
@@ -168,6 +167,202 @@ Information Source -> Input Transducer -> Transmitter -> Channel
 Source Encoder -> Channel Encoder -> Modulator
 
 Demodulator -> Channel Decoder -> Source Decoder
+
+### Instantaneous Frequency
+
+Example :
+
+$$x(t) = 2\cos(2\pi 10t + 10 \pi t^2)$$
+
+Instantaneous Frequency :
+
+$$f(t) = \frac{1}{2\pi} \frac{d(2\pi 10t + 10 \pi t^2)}{dt} = 10 + 10t$$
+
+#### VCO
+
+Instantaneous Frequency :
+
+$$f(t) = f_c + k_f m(t)$$
+
+### AM Modulation
+
+Amplitude of AM Signal :
+
+$$\begin{aligned}
+A_{max} &= A_C(1+\mu)\\
+A_{min} &= A_C(1-\mu)\\
+A_m &= A_C \times \mu\\
+\end{aligned}$$
+
+Example :
+
+$$x_c(t) = A_c[1 + \mu x(t)] \cos(w_ct)$$
+
+Assuming that $\mu < 1$.
+
+- Transmitted Power = $P_t = \langle x_c^2(t) \rangle$
+- Power in Message Signal = $P_x = \langle x^2(t) \rangle$
+
+Find an expression for transmitted power in terms of message power and modulation index.
+
+Substitute expression for transmitted power :
+
+$$P_t = \frac{1}{2} A_c^2 \langle 1 + 2\mu x(t) + \mu^2x^2(t) \rangle + \frac{1}{2} A_c^2 \langle [1+\mu x(t)]^2 \cos(2w_ct)$$
+
+- Time average of a constant is the same.
+- Twice the carrier frequency component was removed
+- Message Signal has no DC Component $\langle x(t)\rangle = 0$
+
+$$P_t = \frac{1}{2} A_c^2(1+ \mu^2P_x) = \frac{1}{2} A_c^2 + \frac{1}{2}A_c^2 \mu^2 P_x$$
+
+- First term is unmodulated carrier power $\mu = 0$
+- Second term is power in carrier plus the signal
+- Significant percentage of power resides in the carrier and conveys no information.
+
+### FM Modulation
+
+#### FM Modulation Index
+
+$$\mu_f = \frac{A_mk_f}{f_m}$$
+
+- $A_mk_f \leftarrow \text{ Maximum Frequency Deviation , } f_{max}$
+- Narrowband FM, $\mu_f << 1$
+
+Example : 
+
+VCO has sensitivity constant of $3 kHz/V$ and free running frequency of $1 MHz$. Input to VCO is tone signal with peak amplitude equal to $2 V$ and frequency $4 kHz$. Output signal is FM. Calculate modulation index of the output FM Signal. 
+
+$$\begin{aligned}
+f_c &= 1\times 10^6 \quad k_f = 3\times 10^3 \quad f(t) =f_c +k_fm(t)\\
+m(t) &= A_m\cos(2\pi f_m t) = 2\cos(2\pi \times 4000t)\\
+f_{max} &=k_f max\{|m(t)|\} = 3\times 10^3 \times 2 = 6 \times 10^3 Hz\\
+\mu_f &= \frac{6kHz}{4KHz} = 1.5
+\end{aligned}$$
+
+#### Narrowband FM
+
+Magnitude Spectrum :
+
+$$e(t) \approx A_c \cos(w_ct)- A_c \mu_f \sin(w_m t)\sin(w_c t)$$
+
+$$e(t) \approx A_c \cos(w_ct)- \frac{A_c \mu_f}{2} \cos(w_c - w_m)t + \frac{A_c \mu_f}{2} \cos(w_c + w_m)t$$
+
+Example :
+
+Draw a double-sided magnitude spectrum for the Narrowband FM signal.
+
+$$e(t) = 10 \cos[2\pi 10^7t+ 0.2\cos(2\pi 10^4t)]$$
+
+- $\mu_f = 0.2$
+
+$$e(t) = A_c \cos(2\pi 10^7t+)- A_c \mu_f \cos(2\pi 10^4t)\sin(2\pi 10^7t+)$$
+
+- Carrier Signal has amplitude of 5 and two side-bands which are message signals with amplitude of 0.5
+
+#### Wideband FM
+
+$$\begin{aligned}
+e(t) & = A_c J_n (\mu_f) \cos(w_ct)\\
+& + \sum_{n \text{even}}^{\infty} A_c J_n (\mu_f)[\cos(w_c + nw_m)t + \cos(w_c - nw_m)t]\\
+& + \sum_{n \text{odd}}^{\infty} A_c J_n (\mu_f)[\cos(w_c + nw_m)t - \cos(w_c - nw_m)t]\\
+\end{aligned}$$
+
+- FM spectrum has carrier frequency line and **infinite** number of side-band lines at $f_c \pm nf_m$.
+- Lines equally spaced by $f_m$.
+- Odd-order lower side-band lines reversed in phase.
+- $J_n(\mu_f)$ obtained from the Bessel Function Values table.
+
+#### Bessel Function Values Table
+
+<table class="wikitable" style="text-align:left;">
+<tbody><tr>
+<th rowspan="2">Modulation<br>index
+</th>
+<th colspan="17">Side-band amplitude
+</th></tr><tr><th>Carrier</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr><tr><th>0.00</th><td>1.00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>0.25</th><td>0.98</td><td>0.12</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>0.5</th><td>0.94</td><td>0.24</td><td>0.03</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>1.0</th><td>0.77</td><td>0.44</td><td>0.11</td><td>0.02</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>1.5</th><td>0.51</td><td>0.56</td><td>0.23</td><td>0.06</td><td>0.01</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>2.0</th><td>0.22</td><td>0.58</td><td>0.35</td><td>0.13</td><td>0.03</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>2.41</th><td>0.00</td><td>0.52</td><td>0.43</td><td>0.20</td><td>0.06</td><td>0.02</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>2.5</th><td>−0.05</td><td>0.50</td><td>0.45</td><td>0.22</td><td>0.07</td><td>0.02</td><td>0.01</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>3.0</th><td>−0.26</td><td>0.34</td><td>0.49</td><td>0.31</td><td>0.13</td><td>0.04</td><td>0.01</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>4.0</th><td>−0.40</td><td>−0.07</td><td>0.36</td><td>0.43</td><td>0.28</td><td>0.13</td><td>0.05</td><td>0.02</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>5.0</th><td>−0.18</td><td>−0.33</td><td>0.05</td><td>0.36</td><td>0.39</td><td>0.26</td><td>0.13</td><td>0.05</td><td>0.02</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>5.53</th><td>0.00</td><td>−0.34</td><td>−0.13</td><td>0.25</td><td>0.40</td><td>0.32</td><td>0.19</td><td>0.09</td><td>0.03</td><td>0.01</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>6.0</th><td>0.15</td><td>−0.28</td><td>−0.24</td><td>0.11</td><td>0.36</td><td>0.36</td><td>0.25</td><td>0.13</td><td>0.06</td><td>0.02</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>7.0</th><td>0.30</td><td>0.00</td><td>−0.30</td><td>−0.17</td><td>0.16</td><td>0.35</td><td>0.34</td><td>0.23</td><td>0.13</td><td>0.06</td><td>0.02</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>8.0</th><td>0.17</td><td>0.23</td><td>−0.11</td><td>−0.29</td><td>−0.10</td><td>0.19</td><td>0.34</td><td>0.32</td><td>0.22</td><td>0.13</td><td>0.06</td><td>0.03</td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>8.65</th><td>0.00</td><td>0.27</td><td>0.06</td><td>−0.24</td><td>−0.23</td><td>0.03</td><td>0.26</td><td>0.34</td><td>0.28</td><td>0.18</td><td>0.10</td><td>0.05</td><td>0.02</td><td></td><td></td><td></td><td></td></tr><tr><th>9.0</th><td>−0.09</td><td>0.25</td><td>0.14</td><td>−0.18</td><td>−0.27</td><td>−0.06</td><td>0.20</td><td>0.33</td><td>0.31</td><td>0.21</td><td>0.12</td><td>0.06</td><td>0.03</td><td>0.01</td><td></td><td></td><td></td></tr><tr><th>10.0</th><td>−0.25</td><td>0.04</td><td>0.25</td><td>0.06</td><td>−0.22</td><td>−0.23</td><td>−0.01</td><td>0.22</td><td>0.32</td><td>0.29</td><td>0.21</td><td>0.12</td><td>0.06</td><td>0.03</td><td>0.01</td><td></td><td></td></tr><tr><th>12.0</th><td>0.05</td><td>−0.22</td><td>−0.08</td><td>0.20</td><td>0.18</td><td>−0.07</td><td>−0.24</td><td>−0.17</td><td>0.05</td><td>0.23</td><td>0.30</td><td>0.27</td><td>0.20</td><td>0.12</td><td>0.07</td><td>0.03</td>
+<td>0.01</td></tr></tbody></table>
+
+#### Modulated Signal
+
+Example :
+
+Carrier given by $c(t) = 10 \cos (2pif_ct)$. Message Signal $\cos(20\pi t)$. 
+The message is used to frequency modulate the carrier with $k_f=50$. 
+Find expression for modulated signal, determine how many harmonics selected to contain $99\%$ of modulated power.
+
+From message signal :
+
+$$f_m = 10Hz$$
+
+Modulated Signal : 
+
+$$\begin{aligned}
+e(t) & = A\cos(2\pi f_c t + 2\pi k_f \int_{-\infty}^{t} \cos(20\pi \tau) d\tau\\
+& = 10 \cos(2\pi f_c t + \frac{100\pi}{20\pi} \sin(20\pi t))\\
+& = 10 \cos(2\pi f_c t + 5 \sin(20\pi t)\\
+\end{aligned}$$
+
+Modulation index :
+
+$$\mu_f = 5$$
+
+FM Modulated Signal :
+
+$$e(t)= 10 \cos(2\pi f_c t + 5 \sin(20\pi t)$$
+
+Total Power :
+
+$$P = \frac{A^2}{2} = 100/2 = 50$$
+
+Spectral lines are at $f_c \pm 10n$
+- How many of the lines contain 99% of the total power.
+
+General FM Signal Spectrum :
+
+$$\begin{aligned}
+e(t) & = A_c J_n (\mu_f) \cos(w_ct)\\
+& + \sum_{n \text{even}}^{\infty} A_c J_n (\mu_f)[\cos(w_c + nw_m)t + \cos(w_c - nw_m)t]\\
+& + \sum_{n \text{odd}}^{\infty} A_c J_n (\mu_f)[\cos(w_c + nw_m)t - \cos(w_c - nw_m)t]\\
+\end{aligned}$$
+
+- $A_c = 10$ and $\mu_f = 5$
+- Power in carrier line $\frac{A_cJ_0(\mu_f))^2}{2} = \frac{100J_0^2(5)}{2}$
+
+Value of $k$ such that at least 99% of power is covered :
+
+$$\sum_{n=-k}^{k} \frac{100J_0^2(5)}{2} \geq 0.99 P$$
+
+- $k = 6$
+- Significant spectral lines at $f_c \pm 10k \text{ , } k = 1, ... ,6$
+- Effective bandwidth = $120 Hz$ ($60Hz$ on both sides of carrier)
+
+### Bandwidth of FM Signals
+
+- Bandwidth of FM signal depends on $f_m$ and $\mu_f$
+
+**Carson's Rule** : 98% of total power is contained in bandwidth.
+
+$$B_c = 2(\mu_f + 1)W$$
+
+- Modulation Index, $\mu_f$ 
+- Bandwidth of message signal, $W$
+
+Example :
+
+$$m(t) = 10 \text{sinc }(10^4 t)$$
+
+Determine transition bandwidth of FM modulated signal with $k_f = 4000$.
+
+$$m(t) = \frac{10}{10^4t}\sin(10^4 \pi t)$$
+
+- Sinc function can be converted to sine function.
+- Bandwidth , $W = 5000Hz$
+
+$$f_{max} = k_f max\{|m(t)|\} = 4000 \times 10 = 40 kHz$$
+
+$$\mu_f = \frac{f_{max}}{W} = \frac{40k}{5k} = 8$$
+
+$$B_c = 2(8 + 1)5k = 90kHz$$
 
 ### Information Measure
 
@@ -194,7 +389,7 @@ P(A)=0.25,  P(B)=0.5,  P(C)=0.125,  P(D)= 0.125
 ```
 
 Encoder 1 :
-- Enocode 4 elements into 2 bits
+- Encode 4 elements into 2 bits
 
 | Element | Bit |
 |---------|-----|
@@ -223,6 +418,8 @@ $$R = \frac{H}{T}$$
 ### Noiseless Channel Capacity
 
 $$C=2B\log_2{M}$$
+
+$$C=B\log_2{(1+\frac{S}{N})}$$
 
 - B, Bandwidth
 - M, Level Signalling
@@ -268,10 +465,10 @@ $$\hat{x}=F^{-1}(F(x))=\frac{x_{max}}{\mu}[(1+\mu)^{\frac{|F(x)|}{x_{max}}} -1] 
 |-------------------------|--------------------------------------------------------------------------------|
 | Unipolar                | Only 1s and 0s                                                                 |
 | NRZ-L                   | Positive voltage mean 0 <br> Negative voltage mean 1                           |
-| NRZ-I                   | Transistion when next bit is 1                                                 |
+| NRZ-I                   | Transition when next bit is 1                                                 |
 | RZ                      | Positive, Negative and 0<br> Change to 0 and Positive for 1 and Negative for 0 |
 | Manchester              | Low -> High represents 1<br>  High -> Low represents 0                         |
-| Differential Manchester | Transition at begining means 0<br> No transistion means 1                      |
+| Differential Manchester | Transition at beginning means 0<br> No transition means 1                      |
 
 ### Raised Cosine Pulse Shaping
 
@@ -299,7 +496,7 @@ Impulse Response :
 $$h(t)=Cs(t_0-t)$$
 
 - Known signal played backward and translated by $t_0$
-- Autocorrelation function maximum when perfectly aliged
+- Autocorrelation function maximum when perfectly aligned
 
 Power Spectral Density of White Noise :
 
@@ -315,7 +512,7 @@ $$P_e < \frac{e^{-E_b/N_0}}{2 \sqrt{\pi E_b/N_0}}$$
 
 ### Equalisation
 
-- Equalising Filter to minmise ISI
+- Equalising Filter to minimise ISI
 - Two types :
     - Zero Forcing Equaliser
     - MMSE Equaliser
