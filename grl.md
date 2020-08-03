@@ -1,15 +1,15 @@
 The magical file to quickly get a solution to a problem encountered before without searching the Internet.
 
-## Trigonometry
+# Trigonometry
 
-### Cosine $\rightarrow$ Sine Conversion
+## Cosine $\rightarrow$ Sine Conversion
 
 $$\cos{(\theta - 90)} = \sin{(\theta)}$$
 $$\sin{(\theta + 90) = \cos{(\theta})}$$
 
-## RLC Circuit Analysis
+# RLC Circuit Analysis
 
-### Impedance of Series Circuit : 
+## Impedance of Series Circuit : 
 
 $$Z^2 = R^2 + (X_L - X_C)^2$$
 
@@ -18,29 +18,30 @@ Impedance of Inductor : $X_L = 2\pi fL$
 Impedance of Capacitor : $X_C = \frac{1}{2\pi fC}$
 
 
-### Leading/Lagging Component
+## Leading/Lagging Component
 
 - **ELI** the **ICE** man 
 - Voltage Leads Current in Inductor Circuit.
 - Current Leads Voltage in Capacitor Circuit.
 
-### Reactive Power 
+## Reactive Power 
 
 $$Q = VI\sin(\theta)$$
 
 - Resistive Load    : $Q_L = I^2X_L$
 - Capacitive Load   : $Q_C = I^2X_C$
 
-### Phase Relationships
+## Phase Relationships
 
 $$S = P + jQ = VI\cos(\theta) + jVI\sin(\theta) = VI\angle\theta$$
+
 - Real Power : $P = VI_{in}$
 - Reactive Power : $Q = VI_{out}$
 - Apparent Power : $S = \sqrt{Q^2 - P^2}$
 
-## Signal Analysis
+# Signal Analysis
 
-### Aliasing
+## Aliasing
 
 Example :
 
@@ -50,20 +51,19 @@ $$x_a(t) = 3 \cos(600\pi t) + 2 \cos(1800\pi t)$$
 - Aliasing : $\text{Sampling frequency} \leq 2 F$
 
 Frequencies in Resulting Discrete-time signal :
+
 - $f_1 = \frac{F_1}{F_s} = \frac{300}{1000} = 0.3 \text{ cycles/sample}$
 - $f_2 = \frac{F_2}{F_s} = \frac{900}{1000} = 0.9 \text{ cycles/sample}$
-
-$f_2$ appearing as $f^\text{alias}_2 = 0.9 - 1 = - 0.1 \text{ cycles/sample}$
-
+- $f_2$ appearing as $f^\text{alias}_2 = 0.9 - 1 = - 0.1 \text{ cycles/sample}$
 - $f_2 = \frac{F_2}{F_s} = \frac{900}{1000} = 0.9 \text{ cycles/sample}$
 
-### Power and Energy of Signal
+## Power and Energy of Signal
 
-#### Energy
+### Energy
 
 $$E = \sum_{n = - \infty}^{\infty} |x(n)|^2$$
 
-#### Power
+### Power
 
 $$P = \lim_{N \rightarrow \infty} \frac{1}{2N + 1} \sum_{n=-N}^{N} |x(n)|^2$$
 
@@ -71,7 +71,7 @@ For $x(n) = A \cos(2\pi fn + \phi)$ :
 
 $$P = \frac{A^2}{2}$$
 
-### Impulse Response
+## Impulse Response
 
 1. System Equation
 2. Impulse Response
@@ -107,7 +107,7 @@ Impulse Response from General Form :
 
 $$h(n) = (-2/3)(0.5)^n + (5/3)(-0.25)^n \text{ for } n \geq 0$$
 
-### Steady-state response
+## Steady-state response
 Example : 
 
 $$\begin{aligned}
@@ -120,63 +120,63 @@ H(z) & = \frac{1 - 0.5z^{-1}}{1 - \dfrac{1}{12} z^{-1} + \dfrac{1}{12} z^{-2}}\\
 3. Substitute Fundamental Frequency into Frequency Response.
 4. Steady-state Response. $y(n) = 2 \times 1.0332 \times \cos(0.1\pi n + 0.358) u(n)$
 
-### Zero-state Step Response
+## Zero-state Step Response
 
 The step response is the system's output when the input is $u(n)$.
 
-### Zero-input Response
+## Zero-input Response
 
 - Poles of the system.
 
 $$y_{zi} = [A(p_1)^n + B(p_2)^n]u(n)$$
 
-### Stability of a System
+## Stability of a System
 
 Determine if the poles of the system are within the unit circle.
 
-### Initials and Final Values of Causal Signal
+## Initials and Final Values of Causal Signal
 - Signal is causal
 
-#### Initial Value
+### Initial Value
 
 $$\lim_{z \rightarrow \infty} z^{-1} = 0$$
 
-#### Final Value
+### Final Value
 
 $$\lim_{z \rightarrow 1} z^{-1} = 1$$
 
-### Statistical Calculations
+## Statistical Calculations
 
-#### Mean
+### Mean
 
 $$\mu = E[X] = \int_{-\infty}^{\infty} xp(x) dx$$
 
-#### Mean Square
+### Mean Square
 
 $$\mu = E[X^2] = \int_{-\infty}^{\infty} x^2p(x) dx$$
 
-#### Variance
+### Variance
 
 $$Var[X] = E[X^2] - \mu^2$$
 
-#### Standard Deviation
+### Standard Deviation
 
 $$\sigma = \sqrt{Var[X]}$$
 
-### Quantisation Noise
+## Quantisation Noise
 
 $$\Delta = \frac{x_{max}-x_{min}}{L}$$
 
-#### Variance of Quantisation Noise
+### Variance of Quantisation Noise
 Signal Power is also equal to Quantisation Noise variance.
 
 $$P_{signal} = \delta^2 = \Delta/12$$
 
-#### Signal to Quantisation-Noise Ratio
+### Signal to Quantisation-Noise Ratio
 
 $$SQNR = \frac{P_{signal}}{P_{noise}} = L^2$$
 
-### Autocorrelation Sequence
+## Autocorrelation Sequence
 
 $$r_{xx}(l) = \sum_{n=-\infty}^{\infty} x(n)x(n-l)$$
 
@@ -200,7 +200,7 @@ x(n) = {1, 2, 1, 1}
 1 3 5 7 5 3 1
 ```
 
-### Communication System
+## Communication System
 
 Information Source -> Input Transducer -> Transmitter -> Channel
 -> Receiver -> Output Transducer -> Sink
@@ -209,7 +209,7 @@ Source Encoder -> Channel Encoder -> Modulator
 
 Demodulator -> Channel Decoder -> Source Decoder
 
-### Instantaneous Frequency
+## Instantaneous Frequency
 
 Example :
 
@@ -219,13 +219,13 @@ Instantaneous Frequency :
 
 $$f(t) = \frac{1}{2\pi} \frac{d(2\pi 10t + 10 \pi t^2)}{dt} = 10 + 10t$$
 
-#### VCO
+### VCO
 
 Instantaneous Frequency :
 
 $$f(t) = f_c + k_f m(t)$$
 
-### AM Modulation
+## AM Modulation
 
 Amplitude of AM Signal :
 
@@ -260,9 +260,9 @@ $$P_t = \frac{1}{2} A_c^2(1+ \mu^2P_x) = \frac{1}{2} A_c^2 + \frac{1}{2}A_c^2 \m
 - Second term is power in carrier plus the signal
 - Significant percentage of power resides in the carrier and conveys no information.
 
-### FM Modulation
+## FM Modulation
 
-#### FM Modulation Index
+### FM Modulation Index
 
 $$\mu_f = \frac{A_mk_f}{f_m}$$
 
@@ -280,7 +280,7 @@ f_{max} &=k_f max\{|m(t)|\} = 3\times 10^3 \times 2 = 6 \times 10^3 Hz\\
 \mu_f &= \frac{6kHz}{4KHz} = 1.5
 \end{aligned}$$
 
-#### Narrowband FM
+### Narrowband FM
 
 Magnitude Spectrum :
 
@@ -300,7 +300,7 @@ $$e(t) = A_c \cos(2\pi 10^7t+)- A_c \mu_f \cos(2\pi 10^4t)\sin(2\pi 10^7t+)$$
 
 - Carrier Signal has amplitude of 5 and two side-bands which are message signals with amplitude of 0.5
 
-#### Wideband FM
+### Wideband FM
 
 $$\begin{aligned}
 e(t) & = A_c J_n (\mu_f) \cos(w_ct)\\
@@ -313,13 +313,11 @@ e(t) & = A_c J_n (\mu_f) \cos(w_ct)\\
 - Odd-order lower side-band lines reversed in phase.
 - $J_n(\mu_f)$ obtained from the Bessel Function Values table.
 
-#### Bessel Function Values Table
+### Bessel Function Values Table
 
-\
-\
 ![Bessel Function Values Table](images/BesselFunction.png){ width=80% }
 
-#### Modulated Signal
+### Modulated Signal
 
 Example :
 
@@ -373,7 +371,7 @@ $$\sum_{n=-k}^{k} \frac{100J_0^2(5)}{2} \geq 0.99 P$$
 - Significant spectral lines at $f_c \pm 10k \text{ , } k = 1, ... ,6$
 - Effective bandwidth = $120 Hz$ ($60Hz$ on both sides of carrier)
 
-### Bandwidth of FM Signals
+## Bandwidth of FM Signals
 
 - Bandwidth of FM signal depends on $f_m$ and $\mu_f$
 
@@ -401,9 +399,9 @@ $$\mu_f = \frac{f_{max}}{W} = \frac{40k}{5k} = 8$$
 
 $$B_c = 2(8 + 1)5k = 90kHz$$
 
-### Information Measure
+## Information Measure
 
-#### Entropy Example
+### Entropy Example
 
 ``` matlab
 Source = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
@@ -418,7 +416,7 @@ Entropy &= 4\times -\frac{1}{16}\log_2{\frac{1}{16}} + 6 \times -\frac{2}{16}\lo
 &= 3.25 bits
 \end{aligned}$
 
-#### Source Coding Example
+### Source Coding Example
 
 ``` matlab
 % Source has alphabet = {A B C D} 
@@ -446,14 +444,14 @@ Encoder 2 :
 | C       | 110 |
 | D       | 111 |
 
-### Source Rate
+## Source Rate
 
 $$R = \frac{H}{T}$$
 
 - H, Entropy
 - T, Time
 
-### Noiseless Channel Capacity
+## Noiseless Channel Capacity
 
 $$C=2B\log_2{M}$$
 
@@ -463,15 +461,15 @@ $$C=B\log_2{(1+\frac{S}{N})}$$
 - M, Level Signalling
 - C, Channel Capacity
 
-### Signal-to-Noise Ratio (SNR)
+## Signal-to-Noise Ratio (SNR)
 
 $$SNR=\frac{P_x}{P_n}$$
 
 $$SNR_{db} = 10\log_{10}{SNR}$$
 
-### Quantisation
+## Quantisation
 
-#### Uniform Quantisation
+### Uniform Quantisation
 
 \
 Step Size :
@@ -491,7 +489,7 @@ $$E=\frac{\Delta}{2}$$
 Bit Rate :
 $$R=f_s \times n$$
 
-#### $\mu$-Law Warping/Unwarping
+### $\mu$-Law Warping/Unwarping
 
 \
 Sample Compressing (Warping) + Uniform Quantisation + Sample Expanding (Unwarping)
@@ -503,7 +501,7 @@ $\mu$-Law Unwarping :
 
 $$\hat{x}=F^{-1}(F(x))=\frac{x_{max}}{\mu}[(1+\mu)^{\frac{|F(x)|}{x_{max}}} -1] \cdot sgn(F(x))$$
 
-### Encoding
+## Encoding
 
 | Type of Encoding        | Characteristics                                                                |
 |-------------------------|--------------------------------------------------------------------------------|
@@ -514,7 +512,7 @@ $$\hat{x}=F^{-1}(F(x))=\frac{x_{max}}{\mu}[(1+\mu)^{\frac{|F(x)|}{x_{max}}} -1] 
 | Manchester              | Low -> High represents 1<br>  High -> Low represents 0                         |
 | Differential Manchester | Transition at beginning means 0<br> No transition means 1                      |
 
-### Raised Cosine Pulse Shaping
+## Raised Cosine Pulse Shaping
 
 Bandwidth :
 $$B_{RC}=\frac{1-\alpha}{2T}$$
@@ -523,14 +521,14 @@ Efficiency :
 
 $$E_{RC}=\frac{2}{1-\alpha}$$
 
-### Pulse Shaping
+## Pulse Shaping
 
 | Type of Pulse Shaping | Characteristics                                                        |
 |-----------------------|------------------------------------------------------------------------|
 | Nyquist               | Problems :<br>- Time duration long<br>- Ideal Synchronisation Required |
 | Raised Cosine         | Reduce Intersymbol Interference (ISI)                                  |
 
-### Matched Filtering
+## Matched Filtering
 
 Matched Filter :
 $$H(f)=K\frac{S^*(f)}{P_n(f)}e^{-j2\pi ft_0}$$
@@ -554,14 +552,14 @@ $$P_e < \frac{e^{-E_b/N_0}}{2 \sqrt{\pi E_b/N_0}}$$
 - $N_0$, Noise spectral density
 - $\frac{E_b}{N_0}$ proportional to SNR
 
-### Equalisation
+## Equalisation
 
 - Equalising Filter to minimise ISI
 - Two types :
     - Zero Forcing Equaliser
     - MMSE Equaliser
 
-### Digital Modulation
+## Digital Modulation
 
 $$a\cos (2\pi f_ct + \theta)$$
 
@@ -577,7 +575,7 @@ $$a\cos (2\pi f_ct + \theta)$$
 | M-ary Quadrature Amplitude Modulation | Combines ASK and PSK                   |
 | Differential PSK                      | Encode information in phase difference |
 
-### Discrete Time Fourier Transform (DTFT)
+## Discrete Time Fourier Transform (DTFT)
 
 DTFT :
 
@@ -587,7 +585,7 @@ IDTFT :
 
 $$x[n] = \frac{1}{2\pi} \int_{w=-\pi}^{\pi} X(jw)e^{jwn} dw$$
 
-### Discrete Fourier Transform (DFT)
+## Discrete Fourier Transform (DFT)
 
 DFT :
 
@@ -597,11 +595,11 @@ IDFT:
 
 $$X[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] e^{j\frac{2\pi k}{N}}$$
 
-### Geometric Series
+## Geometric Series
 
 $$\sum_{n=0}^{N-1} a^n = \frac{1-a^{N-1+1}}{1-a}$$
 
-### Circular Convolution
+## Circular Convolution
 
 Time domain Method :
 
@@ -627,7 +625,7 @@ Product of two DFT , $Y(k) = X_1(k) X_2(k) = 84 + 92 W_{4}^{k} + 84 W_{4}^{2k} +
 
 Inverse DFT , $y(n)={84,92,84,60}$
 
-### Direct Form Realisation
+## Direct Form Realisation
 
 Transfer Function :
 
@@ -649,11 +647,11 @@ Parallel Form :
 - Each term is a sub-system by itself
 - Sums after computation within each sub-system
 
-## AVR Programming
+# AVR Programming
 
-### Common Items
+## Common Items
 
-#### Pointer Register Locations
+### Pointer Register Locations
 
 | Pointer Register     | HEX | DEC | BIN   |
 |----------------------|-----|-----|-------|
@@ -664,7 +662,7 @@ Parallel Form :
 | Z-Register Low Byte  | 1E  | 30  | 11110 |
 | Z-Register High Byte | 1F  | 31  | 11111 |
 
-#### AVR Addressing Mode
+### AVR Addressing Mode
 
 | Addressing Mode                              | Example        |
 |----------------------------------------------|----------------|
