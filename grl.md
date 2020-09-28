@@ -649,7 +649,19 @@ Parallel Form :
 
 # AVR Programming
 
-## Common Items
+## Common Items at8515
+
+### Alternate Functions of Port D
+| Port Pin | Alternate Function                                  |
+|----------|-----------------------------------------------------|
+| PD7      | RD (Read Strobe to External Memory)                 |
+| PD6      | WR (Write Strobe to External Memory)                |
+| PD5      | OC1A (Timer/Counter1 Output Compare A Match Output) |
+| PD4      | XCK (USART External Clock Input/Output)             |
+| PD3      | INT1 (External Interrupt 1 Input)                   |
+| PD2      | INT0 (External Interrupt 0 Input)                   |
+| PD1      | TXD (USART Output Pin)                              |
+| PD0      | RXD (USART Input Pin)                               |
 
 ### Pointer Register Locations
 
@@ -673,3 +685,143 @@ Parallel Form :
 | Data Indirect Addressing with Post-Increment | ST Y+, r28     |
 | Data Indirect Addressing with Pre-Decrement  | LD r15, -X     |
 | Data Indirect Addressing with Displacement   | LDD Z+1, r21   |
+
+### Interrupt Sense Control
+
+```asm
+    ; *** set up & enable interrupts ***
+    ; ISC11 = 0 ISC10 = 1
+    ldi temp, (1<<ISC11) | (1<<ISC10) | (0<<ISC01) | (1<<ISC00)
+    out MCUCR,temp
+
+    ldi temp, (1<<INT1) | (1<<INT0)
+    out GICR, temp
+
+    sei
+```
+
+| ISC11 | ISC10 | Description          |
+|-------|-------|----------------------|
+| 0     | 0     | Low INT1 Trigger     |
+| 0     | 1     | Any INT1 Trigger     |
+| 1     | 0     | Falling edge Trigger |
+| 1     | 1     | Rising edge Trigger  |
+
+### Status Register (SREG)
+
+- Bit 7 – I: Global Interrupt Enable
+- Bit 6 – T: Bit Copy Storage
+- Bit 5 – H: Half Carry Flag
+- Bit 4 – S: Sign Bit, S = N $\bigoplus$ V
+- Bit 3 – V: Two’s Complement Overflow Flag
+- Bit 2 – N: Negative Flag
+- Bit 1 – Z: Zero Flag
+- Bit 0 – C: Carry Flag
+
+## Common Items atmega16
+
+I/O Port for TXD and RXD
+- TXD = PD1
+- RXD = PD0
+
+Register to set baud rate
+- UBRRH, UBRRL
+
+Asynchronous transmission
+- UMSEL (Register UCSRC)
+
+Number of stop bits
+- USBS (Register UCSRC)
+    - 0 -> 1 Stop bit
+    - 1 -> 2 stop bit
+
+Parity bit options
+- UPM1, UPM0 (Register UCSRC)
+    - 00 -> None
+    - 10 -> Even
+    - 11 -> Odd
+
+Double Transmission Speed
+- U2X = 1 (Register UCSRA)
+- Baud Rate = $\text{Clock}/[8 \times (UBRR + 1)$
+
+Character Size 5, 6, 8, 9
+- UCSZ2 (UCSRB)
+- UCSZ1, UCSZ0 (UCSRC)
+
+Initialise serial port 
+1. Set USART for asynchronous mode (UCSRA, UCSRC)
+2. Set USART communication parameters (UCSRA, UCSRC)
+3. Set baud rate (UBRRH, UBRRL)
+4. Enable transmitter and receiver (UCSRB)
+
+Synchronous VS Asynchronous Serial Transmission
+- Synchronous
+    - Clocks of sender and receiver are synchronised
+    - Block of characters enclosed by synchronising bytes sent at a time
+    - Faster transfer and less overhead
+    - SPI/ BISYNC
+- Asynchronous
+    - Clock of sender and receiver not synchronised
+    - One character sent at a time enclosed by start bit, stop bit & parity
+    - Slow for long messages, suitable for interactive messages
+
+Timing in asynchronous serial transmission
+- Each character requires 11 bits to send : 8 data + 1 start + 1 stop + 1 parity
+- Receiver reads the 11th bit to find the end of the transmission
+    - If not detected, a framing error will occur
+- Clock period $T_{tx}$ 
+    - $T_{tx} = 1/\text{baud rate}$
+
+Example:
+
+A file of 10000 bytes sent over a line at 19600bps
+1. Calculate overhead in bits and seconds for asynchronous mode.
+    - 1 start bit, 1 stop bit, 8 data bits and no parity bit
+2. Calculate the overhead in bits and seconds for synchronous mode.
+    - 1000 characters/frame and overhead of 48bits/frame
+
+1. 1 start and 1 stop bit = 2 bits of overhead per character.
+    - 20000 bits sent
+    - overhead = 20000/19600 = 1.02s
+2. 10 frames to transmit file
+    - overhead bits 48bits/frame
+    - overhead time = 48*10/19600 = 0.0245s
+
+## Timers in ATmega16
+- Bit width of Timer 0, Timer 1 and Timer 2
+    - Timer 0 -> 8 bits
+    - Timer 1 -> 16 bits
+    - Timer 2 -> 8 bits
+- TCNT registers store current counter value
+- Select clock source for Timer 1
+    - TCCR1B
+        - CS12
+        - CS11
+        - CS10
+- Prescaler only applied to internal clock source
+- Enable Timer 1 interrupts
+    - TIMSK
+- Timer 1 overflow if uses the default internal clock of 1MHz and prescaler factor of 1024
+    - $1 \mu s \times 1024 \times 2^16 = 67s$
+- Register select the type of events trigger Timer 1 Input Capture Interrupt
+    - TCCR1B (ICES1)
+- Stores automatically the timer value when Timer 1 Input Capture interrupt occurs
+    - ICR1
+- I/O Port for Input Capture Pin
+    - Port D pin 6 (D.6)
+
+### Timer 1 Input Capture Interrupt
+- Timer 1 can either detect rising edge or falling edge
+
+Possible solution
+- Trigger External Internet INT1 on rising edge
+    - When INT1 occurs reset Timer 1
+- Trigger Timer 1 Input Capture Interrupt on falling edge
+    - When TIMER1_CAP occurs, read ICR1
+- Feed Rectangular signal to INT1 (D.3)
+
+# Data Communications
+
+N(R) = ACK
+
